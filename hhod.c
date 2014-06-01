@@ -314,6 +314,13 @@ static int mydaemon(void)
 								raw_data = 0;
 							}
 
+							if (strcmp(buf, "exit\n")==0||
+								strcmp(buf, "quit\n")==0
+								)
+							{
+								Do_exit = 1;
+							}
+
 							if (strcmp(buf, "S\n")==0||
 								strcmp(buf, "s\n")==0||
 								strcmp(buf, "?\n")==0||
@@ -372,7 +379,7 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i], "--raw") == 0)
 		raw_data = 1;
 		else if (strcmp(argv[i], "--version") == 0) {
-			printf("%s\n", "HHB Server BETA 0.0.1");
+			printf("%s\n", "HHB Server BETA 0.0.2");
 			printcopy();
 			exit(0);
 		}

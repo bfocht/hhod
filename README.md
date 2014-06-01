@@ -36,7 +36,15 @@ to see an unformatted state table
 
     raw=off 
 will display formatted state table with the following fields
-    STATE_RECORD_ID,DEVICE_NAME,DEVICE_TYPE,DEVICE_STATE_TIMER,ALIVE_UPDATE_TIMER,DEVICE_ALERTS
+    STATE_RECORD_ID,
+    DEVICE_NAME,
+    DEVICE_TYPE,
+    DEVICE_STATE,
+    DEVICE_STATE_TIMER,
+    ALIVE_UPDATE_TIMER,
+    DEVICE_ALERTS, 
+    DEVICE_CONFIGURATION,
+    MAC_ADDRESS
 
 This software is not approved, supported, was was written without permission from EATON.
 The use of the trademark is also used without permission.
