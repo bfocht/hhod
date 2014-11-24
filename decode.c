@@ -228,17 +228,20 @@ int decode_state(char *aLine)
 			if (i >= 16)
 			{
 				char *name;
+				char *mac;
 				if (i <= DEVICE_NAME)
 				{
 					//base station and modem do not have names
 					name = devTypeLookup(fields[DEVICE_TYPE]);
+					mac = "0\0";
 				}
 				else
 				{
 					name = clean_device_name(fields[DEVICE_NAME]);
+					mac = fields[MAC_ADDRESS];
 				}
 
-				sockprintf(-1, "%s, %s, %s, %s, %d, %d, %s, %s,%s\n",
+				sockprintf(-1, "%s, %s, %s, %s, %d, %d, %s, %s, %s\n",
 					fields[STATE_RECORD_ID],
 					name,
 					devTypeLookup(fields[DEVICE_TYPE]),
@@ -247,7 +250,7 @@ int decode_state(char *aLine)
 					decodeTimer(fields[ALIVE_UPDATE_TIMER]),
 					devAlertLookup(fields[DEVICE_ALERTS]),
 					devConfigLookup(fields[DEVICE_CONFIGURATION]),
-					fields[MAC_ADDRESS]
+					mac
 					);
 			}
 

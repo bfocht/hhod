@@ -89,28 +89,22 @@ int sockprintf(int fd, const char *fmt, ...)
 {
 	va_list args;
 	char buf[1024];
-	char *aLine;
-	int len, buflen;
-	time_t tm;
+	int buflen;
 	int i;
-	int bytesOut;
-
-	aLine = buf;
-	tm = time(NULL);
-	len = strftime(aLine, sizeof(buf), "%m/%d %T ", localtime(&tm));
 	va_start(args, fmt);
-	buflen = vsnprintf(aLine + len, sizeof(buf)-len, fmt, args);
+	buflen = vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
-	buflen += len;
-	if (fd != -1) {
+	if (buflen > 1) {
+		if (fd != -1) {
 
-		return send(fd, aLine, buflen, MSG_NOSIGNAL);
-	}
+			return send(fd, buf, buflen, MSG_NOSIGNAL);
+		}
 
-	/* Send to all socket clients */
-	for (i = 0; i < MAXCLISOCKETS; i++) {
-		if ((fd = Clientsocks[i].fd) > 0) {
-			bytesOut = send(fd, aLine, buflen, MSG_NOSIGNAL);
+		/* Send to all socket clients */
+		for (i = 0; i < MAXCLISOCKETS; i++) {
+			if ((fd = Clientsocks[i].fd) > 0) {
+				send(fd, buf, buflen, MSG_NOSIGNAL);
+			}
 		}
 	}
 	return buflen;
@@ -212,7 +206,6 @@ static int mydaemon(void)
 	char buf[1024];
 	int bytesIn;
 	struct sockaddr_in cliaddr, servaddr;
-	int rc;
 	static const int optval = 1;
 
 	struct sigaction sigact;
@@ -237,9 +230,9 @@ static int mydaemon(void)
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port = htons(SERVER_PORT);
 
-	rc = setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
-	rc = bind(listenfd, (struct sockaddr*) &servaddr, sizeof(servaddr));
-	rc = listen(listenfd, 128);
+	setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+	bind(listenfd, (struct sockaddr*) &servaddr, sizeof(servaddr));
+	listen(listenfd, 128);
 
 	init_client();
 	Clients[0].fd = listenfd;
