@@ -314,7 +314,7 @@ static int mydaemon(void)
 								Do_exit = 1;
 							}
 
-							if (strcmp(buf, "S\n")==0||
+							if (strcmp(buf, "S\n")==0||strcmp(buf, "S\r\n")==0||
 								strcmp(buf, "s\n")==0||
 								strcmp(buf, "?\n")==0||
 								strcmp(buf, "a\n")==0||
