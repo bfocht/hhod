@@ -51,7 +51,7 @@
 
 //Field 3 Device Type
 static const struct DeviceConst DevType[] = {
-	{ "0000", "Unknow Device" },
+	{ "0000", "Unknown Device" },
 	{ "0001", "Base Station" },
 	{ "0002", "Home Key" },
 	{ "0003", "Open/Closed" },
@@ -117,6 +117,7 @@ static const struct DeviceConst DevConfig[] = {
 	{ "0402", "alarm2|callme4" },
 	{ "0403", "alarm3|callme4" },
 	{ "0404", "alarm4|callme4" },
+	{ "0501", "alarm4|callme4" },
 };
 
 //******************************************************************************************************
@@ -241,7 +242,7 @@ int decode_state(char *aLine)
 					mac = fields[MAC_ADDRESS];
 				}
 
-				sockprintf(-1, "%s, %s, %s, %s, %d, %d, %s, %s, %s\n",
+				sockprintf(-1, "%s,%s,%s,%s,%d,%d,%s,%s,%s\n",
 					fields[STATE_RECORD_ID],
 					name,
 					devTypeLookup(fields[DEVICE_TYPE]),
@@ -249,7 +250,7 @@ int decode_state(char *aLine)
 					decodeTimer(fields[DEVICE_STATE_TIMER]),
 					decodeTimer(fields[ALIVE_UPDATE_TIMER]),
 					devAlertLookup(fields[DEVICE_ALERTS]),
-					devConfigLookup(fields[DEVICE_CONFIGURATION]),
+					fields[DEVICE_CONFIGURATION],
 					mac
 					);
 			}
