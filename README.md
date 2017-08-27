@@ -7,17 +7,23 @@ hhod is a Linux TCP gateway daemon for the FTDI Interface for the Eaton Home hea
 
 hhod stands for homeheartbeat online daemon
 
+## How setup up the Linux FTDI Serial Driver
+You will need to have your hh USB device plugged in
+Copy udev rules file `10-home-heartbeat.rules`  to `/etc/udev/rules.d/10-home-heartbeat.rules`
+Confirm device is loaded `ls /dev/ttyUSB*`
 
 ## How to build
 
     make
 
-## How to Start
-You will need to have your hh USB device plugged and loaded by running the following command
 
-    modprobe ftdi_sio vendor=0x0403 product=0xde29
+
+## How to Start
+```
     
     ./hhod
+
+```
 
 ## How to connect 
 
@@ -29,7 +35,7 @@ connect using netcat
 ## Commands
 Enter ? to see standard list of commands
 
-Additionally you can entere
+Additionally you can enter
 
     raw=on 
 to see an unformatted state table

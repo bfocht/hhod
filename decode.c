@@ -82,7 +82,16 @@ static const struct DeviceConst DevAlert[] = {
 	{ "01", "alarm" },
 	{ "02", "offline" },
 	{ "04", "battery low" },
-	{ "08", "battery charging" }
+	{ "05", "alert 05"},
+	{ "06", "alert 06"},
+	{ "07", "alert 07"},
+	{ "08", "battery charging" },
+	{ "09", "alert 09"},
+	{ "0A", "alert 0A"},
+	{ "0B", "alert 0B"},
+	{ "0C", "alert 0C"},
+	{ "0D", "alert 0D"},
+	{ "FF", "waiting for update" }
 };
 
 
